@@ -11,15 +11,14 @@ const List = ({places, childClicked, isLoading}) => {
   const [elRefs, setElrefs] = useState([])
 
   useEffect(()=>{
-    const refs = Array(places?.length).fill().map((_, i)=> elRefs[i] || createRef());
+    const refs = Array(places?.length).fill().map((_, i) => elRefs[i] || createRef());
     setElrefs(refs)
-    console.log(elRefs);
   }, [places]);
 
   return (
     <div className={classes.container}>
       <Typography variant='h4'>Restaurants and Hotels around you</Typography>
-      {isLoading?(
+      {isLoading ? (
         <div className={classes.loading}>
           <CircularProgress size="5rem"/>
         </div>
@@ -44,7 +43,7 @@ const List = ({places, childClicked, isLoading}) => {
       </FormControl>
       <Grid container spacing={3} className={classes.list}>
         {places?.map((place, i)=>(
-          <Grid item key={i} xs={12}>
+          <Grid ref={elRefs[i]} item key={i} xs={12}>
             <PlaceDetalis 
               place={place}
               selected={Number(childClicked) === i}
